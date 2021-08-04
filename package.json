@@ -19,6 +19,7 @@
   "homepage": "https://github.com/jerismith32/challenge-12-SQL-employee-tracker#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "inquirer": "^8.1.2",
     "mysql2": "^2.2.5"
   },
   "devDependencies": {
