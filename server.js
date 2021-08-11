@@ -103,7 +103,7 @@ function addADepartment() {
     
 };
 
-//Add a Role
+//Add a Role FIX THIS!!!!!!!
 function addARole() {
     inquirer.prompt([
         {
@@ -127,7 +127,7 @@ function addARole() {
     
 };
 
-//Add an Employee
+//Add an Employee, FIX THIS!!!!!!
 function addAnEmployee() {
     inquirer.prompt([
         {
