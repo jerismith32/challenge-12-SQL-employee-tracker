@@ -103,8 +103,10 @@ function addADepartment() {
     
 };
 
-//Add a Role FIX THIS!!!!!!!
+//Add a Role: shows department and roles that are already in the database and then prompts the user to add in the role, salary and department id
 function addARole() {
+    viewAllDepartments();
+    viewAllRoles();
     inquirer.prompt([
         {
             type: 'input',
@@ -116,13 +118,36 @@ function addARole() {
                 }
                 return true;
             }
+        },
+        {
+            type: 'input',
+            name: 'roleSalary',
+            message: "What is the salary for this role?",
+            validate: (input) => {
+                if (input === '') {
+                    return "Please make sure you enter the salary for the role you are trying to add here."
+                }
+                return true;
+            }
+        },
+        {
+            type: 'input',
+            name: 'addDepartment',
+            message: "What is the department ID for the role you want to add?",
+            validate: (input) => {
+                if (input === '') {
+                    return "Please make sure you enter the department ID for the role you are trying to add here."
+                }
+                return true;
+            }
         }
     ]).then(function(data) {
-        console.log('data.addRole',data.addRole);
-        db.query(`INSERT INTO role (name) values ("${data.addRole}")`,  function (err, results) {
-            console.log("Successfully added new role.");
-            viewAllRoles();
-        });
+        console.log(data);
+        //console.log('data.addRole',data.addRole);
+        // db.query(`INSERT INTO role (name) values ("${data.addRole}")`,  function (err, results) {
+        //     console.log("Successfully added new role.");
+        //     viewAllRoles();
+        // });
     })
     
 };
