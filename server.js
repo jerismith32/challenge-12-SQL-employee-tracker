@@ -63,6 +63,7 @@ function viewAllDepartments() {
     db.query('SELECT * FROM department', function (err, results) {
         console.table(results);
     });
+    startQuestions();
 };
 
 //View All Roles
@@ -132,7 +133,7 @@ function addARole() {
         },
         {
             type: 'input',
-            name: 'addDepartment',
+            name: 'addDepartmentID',
             message: "What is the department ID for the role you want to add?",
             validate: (input) => {
                 if (input === '') {
@@ -142,12 +143,11 @@ function addARole() {
             }
         }
     ]).then(function(data) {
-        console.log(data);
-        //console.log('data.addRole',data.addRole);
-        // db.query(`INSERT INTO role (name) values ("${data.addRole}")`,  function (err, results) {
-        //     console.log("Successfully added new role.");
-        //     viewAllRoles();
-        // });
+        console.log('Add Role Data', data);
+        db.query(`INSERT INTO role (title, salary, department_id) values ("${data.addRole}", ${data.roleSalary}, ${data.addDepartmentID})`,  function (err, results) {
+            console.log("Successfully added new role.");
+            viewAllRoles();
+        });
     })
     
 };
