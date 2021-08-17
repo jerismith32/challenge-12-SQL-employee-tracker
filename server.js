@@ -153,7 +153,7 @@ function addARole() {
     startQuestions();
 };
 
-//Add an Employee, FIX THIS!!!!!!
+//Add an Employee
 function addAnEmployee() {
     inquirer.prompt([
         {
@@ -206,9 +206,10 @@ function addAnEmployee() {
             console.log("Successfully added new employee.");
             viewAllEmployees();
         });
-    })
+    });
+    startQuestions();
     
-}
+};
 
 //Update Employee
 function updateEmployee() {
@@ -246,4 +247,5 @@ function updateEmployee() {
             viewAllEmployees();
         };
     });
-}
+    startQuestions();
+};
