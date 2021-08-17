@@ -53,7 +53,6 @@ function startQuestions() {
         }
         else if (data.initialQuestion === 'Cancel') {
             console.log('Cancel');
-            addAnEmployee();
         }
     })
 };
@@ -71,6 +70,7 @@ function viewAllRoles() {
     db.query('SELECT * FROM role', function (err, results) {
         console.table(results);
     });
+    startQuestions();
 };
 
 //View All Employees
@@ -78,6 +78,7 @@ function viewAllEmployees() {
     db.query('SELECT * FROM employee', function (err, results) {
         console.table(results);
     });
+    startQuestions();
 };
 
 //Add a Department
@@ -101,7 +102,7 @@ function addADepartment() {
             viewAllDepartments();
         });
     })
-    
+    startQuestions();
 };
 
 //Add a Role: shows department and roles that are already in the database and then prompts the user to add in the role, salary and department id
@@ -149,7 +150,7 @@ function addARole() {
             viewAllRoles();
         });
     })
-    
+    startQuestions();
 };
 
 //Add an Employee, FIX THIS!!!!!!
@@ -157,18 +158,51 @@ function addAnEmployee() {
     inquirer.prompt([
         {
             type: 'input',
-            name: 'addEmployee',
-            message: "What employee would you like to add?",
+            name: 'firstname',
+            message: "What is the first name of the employee you would like to add?",
             validate: (input) => {
                 if (input === '') {
-                    return "Please make sure you enter the employee you are trying to add here."
+                    return "Please make sure you enter the employee's first name you are trying to add here."
+                }
+                return true;
+            }
+        },
+        {
+            type: 'input',
+            name: 'lastname',
+            message: "What is the last name of the employee you would like to add?",
+            validate: (input) => {
+                if (input === '') {
+                    return "Please make sure you enter the employee's last name you are trying to add here."
+                }
+                return true;
+            }
+        },
+        {
+            type: 'input',
+            name: 'roleID',
+            message: "What is the role ID for this new employee?",
+            validate: (input) => {
+                if (input === '') {
+                    return "Please make sure you enter the employee's role ID here."
+                }
+                return true;
+            }
+        },
+        {
+            type: 'input',
+            name: 'managerID',
+            message: "What is manager ID for the new employee?",
+            validate: (input) => {
+                if (input === '') {
+                    return "Please make sure you enter the employee's manager ID here."
                 }
                 return true;
             }
         }
     ]).then(function(data) {
-        console.log('data.addEmployee',data.addEmployee);
-        db.query(`INSERT INTO department (name) values ("${data.addEmployee}")`,  function (err, results) {
+        console.log('Add New Employee Data', data);
+        db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) values ("${data.firstname}", "${data.lastname}", ${data.roleID}, ${data.managerID})`,  function (err, results) {
             console.log("Successfully added new employee.");
             viewAllEmployees();
         });
@@ -176,6 +210,7 @@ function addAnEmployee() {
     
 }
 
+//Update Employee
 function updateEmployee() {
     viewAllRoles();
     viewAllEmployees();
