@@ -6,7 +6,6 @@ db.connect(err => {
     if (err) throw err;
     console.log('Database connected.');
     startQuestions();
-
 });
 
 //Inital question for the user to decide what they would like to do
@@ -57,12 +56,27 @@ function startQuestions() {
     })
 };
 
+function cancelorContinue() {
+    inquirer.prompt([
+        {
+            type: 'confirm',
+            name: 'addMore',
+            question: "Would you like to continue?"
+        }
+    ]).then(function(data) {
+        if(data.addMore === true) {
+            startQuestions();
+        }
+        else return;
+    }); 
+}; 
+
 //View All Departments
 function viewAllDepartments() {
     db.query('SELECT * FROM department', function (err, results) {
         console.table(results);
     });
-    startQuestions();
+    //startQuestions();
 };
 
 //View All Roles
@@ -70,7 +84,6 @@ function viewAllRoles() {
     db.query('SELECT * FROM role', function (err, results) {
         console.table(results);
     });
-    startQuestions();
 };
 
 //View All Employees
@@ -78,7 +91,6 @@ function viewAllEmployees() {
     db.query('SELECT * FROM employee', function (err, results) {
         console.table(results);
     });
-    startQuestions();
 };
 
 //Add a Department
@@ -102,7 +114,7 @@ function addADepartment() {
             viewAllDepartments();
         });
     })
-    startQuestions();
+    //startQuestions();
 };
 
 //Add a Role: shows department and roles that are already in the database and then prompts the user to add in the role, salary and department id
@@ -150,11 +162,11 @@ function addARole() {
             viewAllRoles();
         });
     })
-    startQuestions();
 };
 
 //Add an Employee
 function addAnEmployee() {
+    viewAllRoles();
     inquirer.prompt([
         {
             type: 'input',
@@ -207,8 +219,7 @@ function addAnEmployee() {
             viewAllEmployees();
         });
     });
-    startQuestions();
-    
+    //startQuestions();
 };
 
 //Update Employee
@@ -247,5 +258,5 @@ function updateEmployee() {
             viewAllEmployees();
         };
     });
-    startQuestions();
+    //startQuestions();
 };

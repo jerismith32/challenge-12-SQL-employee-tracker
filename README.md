@@ -59,7 +59,7 @@
 
 
   ## Video
-  None
+  [Video Walk Through](https://drive.google.com/file/d/1qK4KbAIZNtBcMIrU9Dk4cYyDipk5L3GK/view)
 
   ## Questions
   [GitHub](https://github.com/jerismith32)
